@@ -532,7 +532,7 @@
 </div>
 </div>
 </div>
-<div class="text-center mt-12"><button class="btn px-6 py-3 text-white border-2 purple-border glow-border hover:bg-[#a64dff] hover:text-black" onclick="alert('Plus de photos bientôt disponibles !')">Voir plus de photos</button></div></div>
+</div>
 </section>
 <!-- Contact Section -->
 <section class="py-20 px-6 md:px-12 blue-bg purple-neon" id="contact">
@@ -637,10 +637,8 @@
         });
         
         // Image preview functionality
-        function previewImage(input, previewId) {
             const preview = document.getElementById(previewId);
             
-            if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
@@ -651,7 +649,6 @@
                     preview.appendChild(img);
                 }
                 
-                reader.readAsDataURL(input.files[0]);
             }
         }
         
