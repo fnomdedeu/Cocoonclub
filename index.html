@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="utf-8"/>
@@ -7,25 +7,442 @@
 <title>Cocoon Club - Bar de Nuit à Megève</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-<!-- ... Le style original est conservé ... -->
 <style>
-/* [Style CSS d'origine inchangé, déjà dans ton fichier] */
-</style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;500;600&family=Cinzel:wght@500;700;900&display=swap');
+        
+        :root {
+            --neon-purple: #8a2be2;
+            --bright-purple: #a64dff;
+            --deep-blue: #000022;
+            --darker-blue: #000018;
+            --navy-blue: #00001a;
+            --dark-navy: #000010;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--deep-blue);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+        
+        .cocoon-title {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 4px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+        
+        .blue-bg {
+            background-color: var(--deep-blue);
+            position: relative;
+        }
+        
+        .purple-border {
+            border-color: var(--bright-purple);
+        }
+        
+        .purple-bg {
+            background-color: var(--bright-purple);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.75rem 1.25rem;
+            background-color: var(--deep-blue);
+            border: 1px solid var(--bright-purple);
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .nav-link:hover {
+            background-color: var(--navy-blue);
+            border-color: var(--bright-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(138, 43, 226, 0.3);
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,34,0.3), rgba(0,0,34,0.8));
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--bright-purple);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            color: var(--bright-purple);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,34,0.9);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            z-index: 1001;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: var(--bright-purple);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(138, 43, 226, 0.2);
+        }
+        
+        /* Purple neon effect */
+        .purple-neon {
+            position: relative;
+        }
+        
+        .purple-neon::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--bright-purple);
+            box-shadow: 0 0 10px 2px var(--bright-purple), 0 0 20px 5px rgba(138, 43, 226, 0.7);
+            opacity: 0.7;
+        }
+        
+        /* Subtle white neon effect for title */
+        .white-neon {
+            text-shadow: 0 0 2px #fff, 0 0 4px #fff;
+            animation: subtle-pulse 3s infinite alternate;
+        }
+        
+        @keyframes subtle-pulse {
+            from {
+                text-shadow: 0 0 2px #fff, 0 0 4px #fff;
+            }
+            to {
+                text-shadow: 0 0 3px #fff, 0 0 6px #fff, 0 0 8px rgba(255,255,255,0.5);
+            }
+        }
+        
+        /* Dark panel with subtle texture */
+        .dark-panel {
+            background-color: rgba(0, 0, 34, 0.7);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238a2be2' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            border: 1px solid #111;
+        }
+        
+        .midnight-panel {
+            background: linear-gradient(to bottom, var(--deep-blue) 0%, var(--darker-blue) 100%);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            border: 1px solid var(--dark-navy);
+        }
+        
+        /* Image upload area */
+        .image-upload {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .image-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            cursor: inherit;
+            display: block;
+        }
+        
+        .alert-box {
+            background-color: rgba(138, 43, 226, 0.1);
+            border-left: 4px solid var(--bright-purple);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .alert-icon {
+            color: var(--bright-purple);
+            margin-right: 0.5rem;
+        }
+        
+        /* Google Maps container */
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        /* Glowing border */
+        .glow-border {
+            border: 1px solid var(--bright-purple);
+            box-shadow: 0 0 5px var(--bright-purple), 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+        
+        /* Hero title special styling */
+        .hero-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 2px;
+            background-color: #fff;
+            bottom: -10px;
+            left: 10%;
+            box-shadow: 0 0 5px #fff;
+        }
+    </style>
 </head>
 <body>
-<!-- Navigation et sections d'origine conservés -->
-
-<!-- ... sections HERO, ABOUT, HOURS, etc ... -->
-
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-opacity-90 backdrop-blur-sm py-4 px-6 md:px-12 midnight-panel purple-neon">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+<a class="text-2xl md:text-3xl font-bold cocoon-title white-neon" href="#hero">COCOON CLUB</a>
+<div class="hidden md:flex space-x-4">
+<a class="nav-link text-white" href="#about">À PROPOS</a>
+<a class="nav-link text-white" href="#hours">HORAIRES</a>
+<a class="nav-link text-white" href="#events">ÉVÉNEMENTS</a>
+<a class="nav-link text-white" href="#gallery">GALERIE</a>
+<a class="nav-link text-white" href="#contact">CONTACT</a>
+</div>
+<button class="md:hidden text-white focus:outline-none" id="menu-toggle">
+<i class="fas fa-bars text-2xl"></i>
+</button>
+</div>
+</nav>
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-opacity-95 z-40 flex-col items-center justify-center hidden" id="mobile-menu" style="background-color: var(--deep-blue);">
+<button class="absolute top-6 right-6 text-white" id="close-menu">
+<i class="fas fa-times text-2xl"></i>
+</button>
+<div class="flex flex-col items-center space-y-4 text-xl">
+<a class="nav-link text-white w-64 mobile-link" href="#about">À PROPOS</a>
+<a class="nav-link text-white w-64 mobile-link" href="#hours">HORAIRES</a>
+<a class="nav-link text-white w-64 mobile-link" href="#events">ÉVÉNEMENTS</a>
+<a class="nav-link text-white w-64 mobile-link" href="#gallery">GALERIE</a>
+<a class="nav-link text-white w-64 mobile-link" href="#contact">CONTACT</a>
+</div>
+</div>
+<!-- Hero Section -->
+<section class="h-screen flex items-center justify-center relative blue-bg purple-neon" id="hero">
+<div class="absolute inset-0 hero-overlay"></div>
+<div class="container mx-auto px-6 md:px-12 relative z-10 text-center">
+<h1 class="text-6xl md:text-8xl font-bold cocoon-title mb-6 hero-title white-neon">COCOON CLUB</h1>
+<p class="text-xl md:text-2xl mb-8">Le dernier bar saisonnier de Megève</p>
+<div class="w-24 h-1 purple-bg mx-auto mb-10"></div>
+<p class="text-lg md:text-xl mb-12">Bar • Musique Live • Ambiance</p>
+<a class="btn inline-block px-8 py-3 border-2 purple-border text-white hover:bg-[#a64dff] hover:text-black glow-border" href="#about">DÉCOUVRIR</a>
+</div>
+<div class="scroll-indicator">
+<a class="text-white text-4xl" href="#about">
+<i class="fas fa-chevron-down"></i>
+</a>
+</div>
+</section>
+<!-- About Section -->
+<section class="py-20 px-6 md:px-12 blue-bg purple-neon" id="about">
+<div class="container mx-auto max-w-6xl">
+<h2 class="text-4xl md:text-5xl font-bold text-white mb-16 text-center section-title">BIENVENUE AU COCOON CLUB</h2>
+<div class="flex flex-col md:flex-row gap-12 items-center">
+<div class="md:w-1/2">
+<div class="midnight-panel p-8 border-l-4 purple-border relative purple-neon">
+<p class="mb-6 text-lg">Le Cocoon Club est le lieu incontournable de la vie saisonnière à Megève. Notre établissement vous offre une ambiance chaleureuse et typique pour vos soirées d'hiver comme d'été.</p>
+<p class="mb-6 text-lg">Que vous soyez amateur de musique live avec nos DJ et groupes en résidence, passionné de sport devant nos retransmissions, ou simplement à la recherche d'un lieu idéal pour une soirée décontractée entre amis, le Cocoon Club vous accueille dans un cadre unique.</p>
+<p class="text-lg">Notre équipe passionnée vous attend pour vous faire vivre des moments inoubliables dans une atmosphère de pub anglais, alliant confort et convivialité.</p>
+</div>
+</div>
+<div class="md:w-1/2 h-80 flex items-center justify-center relative overflow-hidden image-upload purple-neon" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="bar-image" onchange="previewImage(this, 'bar-image-preview')" type="file"/>
+<div class="w-full h-full flex items-center justify-center" id="bar-image-preview">
+<img alt="Image du Cocoon Club" class="w-full h-full object-cover" src="logo-cocoon.jpg"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Hours Section -->
+<section class="py-20 px-6 md:px-12 dark-panel purple-neon" id="hours">
+<div class="container mx-auto max-w-6xl">
+<h2 class="text-4xl md:text-5xl font-bold text-white mb-16 text-center section-title">NOS HORAIRES</h2>
+<div class="grid md:grid-cols-2 gap-12">
+<div class="midnight-panel p-8 border-t-2 border-b-2 purple-border relative purple-neon">
+<h3 class="text-2xl font-bold mb-6">Horaires Réguliers</h3>
+<ul class="space-y-4">
+<li class="flex justify-between">
+<span>Dimanche - Mercredi</span>
+<span>21h00 - 03h00</span>
+</li>
+<li class="flex justify-between">
+<span>Jeudi - Samedi</span>
+<span>21h00 - 05h00</span>
+</li>
+</ul>
+</div>
+<div class="midnight-panel p-8 border-t-2 border-b-2 purple-border relative purple-neon">
+<h3 class="text-2xl font-bold mb-6">Horaires Saison d'Hiver</h3>
+<p class="mb-4">Pendant les vacances de Noël et jusqu'à fin mars :</p>
+<ul class="space-y-4">
+<li class="flex justify-between">
+<span>Dimanche - Mercredi</span>
+<span>17h00 - 03h00</span>
+</li>
+<li class="flex justify-between">
+<span>Jeudi - Samedi</span>
+<span>17h00 - 05h00</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="mt-12 alert-box">
+<p class="text-lg"><i class="fas fa-exclamation-circle alert-icon"></i> ATTENTION : Les horaires peuvent varier en fonction de l'affluence. Nous vous recommandons de vérifier nos réseaux sociaux pour les dernières mises à jour.</p>
+</div>
+</div>
+</section>
 <!-- Events Section -->
 <section class="py-20 px-6 md:px-12 blue-bg purple-neon" id="events">
 <div class="container mx-auto max-w-6xl">
 <h2 class="text-4xl md:text-5xl font-bold text-white mb-16 text-center section-title">NOS ÉVÉNEMENTS</h2>
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 <div class="card midnight-panel overflow-hidden rounded-lg relative purple-neon">
-<div class="h-48 flex items-center justify-center" style="background-color: var(--darker-blue);">
+<div class="h-48 flex items-center justify-center image-upload" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="dj-image" onchange="previewImage(this, 'dj-image-preview')" type="file"/>
 <div class="w-full h-full flex items-center justify-center" id="dj-image-preview">
-<img src="images/dj.jpg" alt="DJ Nights" class="w-full h-full object-cover"/>
+<i class="fas fa-music text-4xl text-purple-400"></i>
 </div>
 </div>
 <div class="p-6">
@@ -35,9 +452,10 @@
 </div>
 </div>
 <div class="card midnight-panel overflow-hidden rounded-lg relative purple-neon">
-<div class="h-48 flex items-center justify-center" style="background-color: var(--darker-blue);">
+<div class="h-48 flex items-center justify-center image-upload" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="live-image" onchange="previewImage(this, 'live-image-preview')" type="file"/>
 <div class="w-full h-full flex items-center justify-center" id="live-image-preview">
-<img src="images/live.jpg" alt="Live Music" class="w-full h-full object-cover"/>
+<i class="fas fa-guitar text-4xl text-purple-400"></i>
 </div>
 </div>
 <div class="p-6">
@@ -47,9 +465,10 @@
 </div>
 </div>
 <div class="card midnight-panel overflow-hidden rounded-lg relative purple-neon">
-<div class="h-48 flex items-center justify-center" style="background-color: var(--darker-blue);">
+<div class="h-48 flex items-center justify-center image-upload" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="sports-image" onchange="previewImage(this, 'sports-image-preview')" type="file"/>
 <div class="w-full h-full flex items-center justify-center" id="sports-image-preview">
-<img src="images/sports.jpg" alt="Sports Live" class="w-full h-full object-cover"/>
+<i class="fas fa-tv text-4xl text-purple-400"></i>
 </div>
 </div>
 <div class="p-6">
@@ -61,31 +480,243 @@
 </div>
 </div>
 </section>
-
 <!-- Gallery Section -->
 <section class="py-20 px-6 md:px-12 bg-opacity-90 dark-panel purple-neon" id="gallery">
 <div class="container mx-auto max-w-6xl">
 <h2 class="text-4xl md:text-5xl font-bold text-white mb-16 text-center section-title">GALERIE</h2>
 <div class="gallery-grid">
-<!-- Ici, plus de "+" ni de bouton d'upload, juste les images de la galerie -->
-<div class="gallery-item purple-neon" style="background-color: var(--darker-blue);">
-<img class="w-full h-full object-cover" src="images/photo1.jpg" alt="Ambiance 1"/>
+<!-- Placeholder images with purple neon effect -->
+<div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="gallery-image-1" onchange="previewImage(this, 'gallery-preview-1')" type="file"/>
+<div class="w-full h-full flex items-center justify-center" id="gallery-preview-1">
+<i class="fas fa-plus text-4xl text-purple-400"></i>
 </div>
-<div class="gallery-item purple-neon" style="background-color: var(--darker-blue);">
-<img class="w-full h-full object-cover" src="images/photo2.jpg" alt="Ambiance 2"/>
 </div>
-<div class="gallery-item purple-neon" style="background-color: var(--darker-blue);">
-<img class="w-full h-full object-cover" src="images/photo3.jpg" alt="Ambiance 3"/>
+<div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="gallery-image-2" onchange="previewImage(this, 'gallery-preview-2')" type="file"/>
+<div class="w-full h-full flex items-center justify-center" id="gallery-preview-2">
+<i class="fas fa-plus text-4xl text-purple-400"></i>
 </div>
-<div class="gallery-item purple-neon" style="background-color: var(--darker-blue);">
-<img class="w-full h-full object-cover" src="images/photo4.jpg" alt="Ambiance 4"/>
 </div>
-<!-- Ajoute d'autres images comme tu veux dans /images -->
+<div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="gallery-image-3" onchange="previewImage(this, 'gallery-preview-3')" type="file"/>
+<div class="w-full h-full flex items-center justify-center" id="gallery-preview-3">
+<i class="fas fa-plus text-4xl text-purple-400"></i>
+</div>
+</div>
+<div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="gallery-image-4" onchange="previewImage(this, 'gallery-preview-4')" type="file"/>
+<div class="w-full h-full flex items-center justify-center" id="gallery-preview-4">
+<i class="fas fa-plus text-4xl text-purple-400"></i>
+</div>
+</div>
+<div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="gallery-image-5" onchange="previewImage(this, 'gallery-preview-5')" type="file"/>
+<div class="w-full h-full flex items-center justify-center" id="gallery-preview-5">
+<i class="fas fa-plus text-4xl text-purple-400"></i>
+</div>
+</div>
+<div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);">
+<input accept="image/*" id="gallery-image-6" onchange="previewImage(this, 'gallery-preview-6')" type="file"/>
+<div class="w-full h-full flex items-center justify-center" id="gallery-preview-6">
+<i class="fas fa-plus text-4xl text-purple-400"></i>
+</div>
+</div>
+<div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);"><div class="w-full h-full flex items-center justify-center"><img class="w-full h-full object-cover" src="makash-waloo.jpg"/></div></div><div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);"><div class="w-full h-full flex items-center justify-center"><img class="w-full h-full object-cover" src="sans-valentin.jpg"/></div></div><div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);"><div class="w-full h-full flex items-center justify-center"><img class="w-full h-full object-cover" src="latino-reggaeton.jpg"/></div></div><div class="gallery-item cursor-pointer relative image-upload purple-neon" style="background-color: var(--darker-blue);"><div class="w-full h-full flex items-center justify-center"><img class="w-full h-full object-cover" src="hiphop-rnb.jpg"/></div></div></div>
+<!-- Modal for image preview -->
+<div class="modal" id="imageModal">
+<span class="close" onclick="closeModal()">×</span>
+<div class="modal-content" id="modalImage">
+<div class="w-full h-full flex items-center justify-center">
+<p class="text-white text-xl">Cliquez pour ajouter une image</p>
+</div>
+</div>
+</div>
+<div class="text-center mt-12"><button class="btn px-6 py-3 text-white border-2 purple-border glow-border hover:bg-[#a64dff] hover:text-black" onclick="alert('Plus de photos bientôt disponibles !')">Voir plus de photos</button></div></div>
+</section>
+<!-- Contact Section -->
+<section class="py-20 px-6 md:px-12 blue-bg purple-neon" id="contact">
+<div class="container mx-auto max-w-6xl">
+<h2 class="text-4xl md:text-5xl font-bold text-white mb-16 text-center section-title">NOUS CONTACTER</h2>
+<div class="flex flex-col md:flex-row gap-12">
+<div class="md:w-1/2">
+<div class="midnight-panel p-8 h-full relative purple-neon">
+<h3 class="text-2xl font-bold mb-6 text-white">Informations</h3>
+<ul class="space-y-6">
+<li class="flex items-start">
+<i class="fas fa-map-marker-alt mt-1 mr-4 text-purple-400"></i>
+<span>182 route Edmond de Rothschild, 74120 Megève</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-phone mt-1 mr-4 text-purple-400"></i>
+<span>04 50 21 09 91</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-envelope mt-1 mr-4 text-purple-400"></i>
+<span>cocoon_megeve@yahoo.fr</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-clock mt-1 mr-4 text-purple-400"></i>
+<span>Voir nos horaires d'ouverture ci-dessus</span>
+</li>
+</ul>
+<div class="mt-8">
+<h4 class="text-xl font-bold mb-4">Suivez-nous</h4>
+<div class="flex space-x-6">
+<a class="social-icon text-white hover:text-[#a64dff] text-2xl" href="https://www.facebook.com/CocoonClubMegeve/?locale=fr_FR" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+<a class="social-icon text-white hover:text-[#a64dff] text-2xl" href="https://www.instagram.com/cocoonclubmegeve?igsh=MWh5bzJraWNrZWNscQ==" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="md:w-1/2">
+<div class="h-96 relative overflow-hidden purple-neon" style="background-color: var(--darker-blue);">
+<!-- Google Maps Embed -->
+<div class="map-container">
+<iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2776.9731903252196!2d6.6149689!3d45.8568069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47894f1e8a9c0b33%3A0x4e3a0c8f0c1f5c0!2sCocoon%20Club!5e0!3m2!1sfr!2sfr!4v1652345678901!5m2!1sfr!2sfr"></iframe>
+</div>
+</div>
+<div class="mt-4 text-center">
+<a class="text-white hover:text-[#a64dff] inline-flex items-center" href="https://maps.app.goo.gl/kroxF7soPsi5ZYZh8" target="_blank">
+<i class="fas fa-external-link-alt mr-2"></i> Ouvrir dans Google Maps
+                        </a>
+</div>
+</div>
 </div>
 </div>
 </section>
-
-<!-- ... Reste du site d'origine conservé (Contact, Footer, JS, etc.) ... -->
-
+<!-- Footer -->
+<footer class="py-8 px-6 midnight-panel text-center purple-neon">
+<div class="container mx-auto max-w-6xl">
+<div class="text-3xl font-bold cocoon-title mb-4 white-neon">COCOON CLUB</div>
+<p class="mb-6">182 route Edmond de Rothschild, 74120 Megève</p>
+<div class="flex justify-center flex-wrap space-x-6 mb-6">
+<a class="text-white hover:text-[#a64dff]" href="tel:0450210991">04 50 21 09 91</a>
+<span class="text-purple-900">|</span>
+<a class="text-white hover:text-[#a64dff]" href="mailto:cocoon_megeve@yahoo.fr">cocoon_megeve@yahoo.fr</a>
+</div>
+<div class="flex justify-center space-x-6 mb-6">
+<a class="social-icon text-white hover:text-[#a64dff] text-xl" href="https://www.facebook.com/CocoonClubMegeve/?locale=fr_FR" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+<a class="social-icon text-white hover:text-[#a64dff] text-xl" href="https://www.instagram.com/cocoonclubmegeve?igsh=MWh5bzJraWNrZWNscQ==" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+</div>
+<div class="border-t border-purple-900 pt-6 mt-6">
+<p>© 2023 Cocoon Club. Tous droits réservés.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+        });
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+        });
+        
+        // Image preview functionality
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'w-full h-full object-cover';
+                    preview.appendChild(img);
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Image modal functionality
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modal.style.display = "flex";
+            modal.classList.add('fade-in');
+            
+            if (imageSrc) {
+                modalImg.innerHTML = `<img src="${imageSrc}" class="max-w-full max-h-full">`;
+            }
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+        }
+        
+        // Gallery image click to open in modal
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Only open modal if it's not the file input being clicked
+                if (e.target.tagName !== 'INPUT') {
+                    const img = this.querySelector('img');
+                    if (img) {
+                        openModal(img.src);
+                    } else {
+                        openModal();
+                    }
+                }
+            });
+        });
+        
+        // Close modal when clicking outside of the image
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Update copyright year automatically
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYear = new Date().getFullYear();
+            document.querySelector('footer p').innerHTML = `&copy; ${currentYear} Cocoon Club. Tous droits réservés.`;
+        });
+    </script>
 </body>
 </html>

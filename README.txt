@@ -1,12 +1,7 @@
 
-COCOON CLUB MEGEVE — GUIDE RAPIDE
+COCOON CLUB MEGEVE — MODE D’EMPLOI
 
-1. Pour modifier les images d'événement :
-   - Mets tes images (dj.jpg, live.jpg, sports.jpg) dans le dossier images/
-
-2. Pour la galerie :
-   - Ajoute tes images dans images/ et référence-les dans le HTML.
-
-3. Mets tout ça en ligne via GitHub Pages ou autre hébergeur.
-
+1. Mets tes images dans le dossier images/ avec les bons noms (dj.jpg, live.jpg, sports.jpg, makash-waloo.jpg, etc).
+2. Le fichier index.html est déjà prêt avec la galerie et les événements mis à jour.
+3. Pour la mise en ligne, upload tout le dossier sur GitHub Pages ou ton hébergeur.
 Contact : cocoon_megeve@yahoo.fr
